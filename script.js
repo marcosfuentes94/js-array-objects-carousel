@@ -113,6 +113,9 @@ populateCarousel();
 
 const prevArrow = document.getElementById('prev-arrow');
 const nextArrow = document.getElementById('next-arrow');
+const startButton = document.getElementById('start-button');
+const stopButton = document.getElementById('stop-button');
+const reverseButton = document.getElementById('reverse-button');
 
 prevArrow.addEventListener('click', () => {
 handleArrowClick('prev');
@@ -120,6 +123,23 @@ handleArrowClick('prev');
 
 nextArrow.addEventListener('click', () => {
 handleArrowClick('next');
+});
+
+startButton.addEventListener('click', () => {
+resetAutoplayInterval();
+});
+
+stopButton.addEventListener('click', () => {
+clearInterval(autoplayInterval);
+});
+
+reverseButton.addEventListener('click', () => {
+// INVERTI L'ARRAY DELLE IMMAGINI E CALCOLA L'INDICE DELL'IMMAGINE ATTIVA
+images.reverse();
+activeIndex = images.length - 1 - activeIndex;
+createSlides();
+resetAutoplayInterval();
+populateCarousel();
 });
 
 // POPOLA INIZIALMENTE IL CAROSELLO CON GLI SLIDER, LE MINIATURE E L'IMMAGINE, IL TITOLO E IL TESTO DEL PRIMO ELEMENTO NELL'ARRAY
