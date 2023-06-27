@@ -1,4 +1,5 @@
-const images = [{
+const images = [
+{
 image: 'img/01.webp',
 title: "Marvel's Spiderman Miles Morale",
 text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
@@ -26,11 +27,13 @@ text: "Marvel's Avengers is an epic, third-person, action-adventure game that co
 ];
 
 const container = document.getElementById('carousel-container');
+const thumbnailsContainer = document.getElementById('thumbnails-container');
 let activeIndex = 0;
 
 // FUNZIONE PER CREARE GLI SLIDER PER OGNI IMMAGINE 
 function createSlides() {
 container.innerHTML = ''; // RIMUOVI TUTTI GLI SLIDER ESISTENTI
+thumbnailsContainer.innerHTML = ''; // RIMUOVI TUTTE LE MINIATURE ESISTENTI
 
 images.forEach((image, index) => {
 const slide = document.createElement('div');
@@ -55,9 +58,19 @@ slide.appendChild(imageElement);
 slide.appendChild(textContainer);
 
 if (index === activeIndex) {
-    slide.classList.add('active');
+slide.classList.add('active');
 }
 
+// AGGIUNGI MINIATURA
+const thumbnail = document.createElement('img');
+thumbnail.src = image.image;
+thumbnail.classList.add('thumbnail');
+thumbnail.addEventListener('click', () => {
+activeIndex = index;
+populateCarousel();
+});
+
+thumbnailsContainer.appendChild(thumbnail);
 container.appendChild(slide);
 });
 }
@@ -68,9 +81,9 @@ const slides = container.getElementsByClassName('item');
 
 Array.from(slides).forEach((slide, index) => {
 if (index === activeIndex) {
-    slide.classList.add('active');
+slide.classList.add('active');
 } else {
-    slide.classList.remove('active');
+slide.classList.remove('active');
 }
 });
 }
@@ -97,6 +110,6 @@ nextArrow.addEventListener('click', () => {
 handleArrowClick('next');
 });
 
-// POPOLA INIZIALMENTE IL CAROSELLO CON GLI SLIDER E L'IMMAGINE, IL TITOLO E IL TESTO DEL PRIMO ELEMENTO NELL'ARRAY
+// POPOLA INIZIALMENTE IL CAROSELLO CON GLI SLIDER, LE MINIATURE E L'IMMAGINE, IL TITOLO E IL TESTO DEL PRIMO ELEMENTO NELL'ARRAY
 createSlides();
 populateCarousel();
