@@ -1,62 +1,102 @@
-const images = [
-{
-    image: 'img/01.webp',
-    title: "Marvel's Spiderman Miles Morale",
-    text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
+const images = [{
+image: 'img/01.webp',
+title: "Marvel's Spiderman Miles Morale",
+text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
 },
 {
-    image: 'img/02.webp',
-    title: 'Ratchet & Clank: Rift Apart',
-    text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
+image: 'img/02.webp',
+title: 'Ratchet & Clank: Rift Apart',
+text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
 },
 {
-    image: 'img/03.webp',
-    title: 'Fortnite',
-    text: 'Grab all of your friends and drop into Epic Games Fortnite, a massive 100-player face-off that combines looting, crafting, shootouts, and chaos.',
+image: 'img/03.webp',
+title: 'Fortnite',
+text: 'Grab all of your friends and drop into Epic Games Fortnite, a massive 100-player face-off that combines looting, crafting, shootouts, and chaos.',
 },
 {
-    image: 'img/04.webp',
-    title: 'Stray',
-    text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city.',
+image: 'img/04.webp',
+title: 'Stray',
+text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city.',
 },
 {
-    image: 'img/05.webp',
-    title: "Marvel's Avengers",
-    text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
+image: 'img/05.webp',
+title: "Marvel's Avengers",
+text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
 },
 ];
 
-// OTTIENI IL RIFERIMENTO ALL'ELEMENTO CONTAINER
 const container = document.getElementById('carousel-container');
+let activeIndex = 0;
 
-// CICLA TRAMITE OGNI OGGETTO NELL'ARRAY "images"
-images.forEach((item, index) => {
-// CREAZIONE DEL DIV SLIDE
+// FUNZIONE PER CREARE GLI SLIDER PER OGNI IMMAGINE
+function createSlides() {
+container.innerHTML = ''; // RIMUOVI TUTTI GLI SLIDER ESISTENTI
+
+images.forEach((image, index) => {
 const slide = document.createElement('div');
-slide.classList.add('slide');
+slide.classList.add('item');
 
-// IMPOSTA IL PRIMO SLIDE COME ATTIVO
-if (index === 0) {
+const imageElement = document.createElement('img');
+imageElement.src = image.image;
+
+const textContainer = document.createElement('div');
+textContainer.classList.add('text');
+
+const titleElement = document.createElement('h2');
+titleElement.textContent = image.title;
+
+const textElement = document.createElement('p');
+textElement.textContent = image.text;
+
+textContainer.appendChild(titleElement);
+textContainer.appendChild(textElement);
+
+slide.appendChild(imageElement);
+slide.appendChild(textContainer);
+
+if (index === activeIndex) {
     slide.classList.add('active');
 }
 
-// CREAZIONE DELL'ELEMENTO IMMAGINE
-const image = document.createElement('img');
-image.src = item.image;
-
-// CREAZIONE DELL'ELEMENTO TITOLO
-const title = document.createElement('h2');
-title.textContent = item.title;
-
-// CREAZIONE DELL'ELEMENTO DESCRIZIONE
-const description = document.createElement('p');
-description.textContent = item.text;
-
-// AGGIUNGI IMMAGINE, TITOLO E DESCRIZIONE ALLO SLIDE
-slide.appendChild(image);
-slide.appendChild(title);
-slide.appendChild(description);
-
-// AGGIUNGI LO SLIDE AL CONTAINER
 container.appendChild(slide);
 });
+}
+
+// FUNZIONE PER POPOLARE IL CAROSELLO CON L'IMMAGINE, IL TITOLO E IL TESTO DELL'IMMAGINE ATTIVA
+function populateCarousel() {
+const slides = container.getElementsByClassName('item');
+
+Array.from(slides).forEach((slide, index) => {
+if (index === activeIndex) {
+    slide.classList.add('active');
+} else {
+    slide.classList.remove('active');
+}
+});
+}
+
+// FUNZIONE PER GESTIRE IL CLICK DELL'UTENTE SULLE FRECCE
+function handleArrowClick(direction) {
+if (direction === 'prev') {
+activeIndex = (activeIndex - 1 + images.length) % images.length;
+} else if (direction === 'next') {
+activeIndex = (activeIndex + 1) % images.length;
+}
+
+populateCarousel();
+}
+
+const prevArrow = document.getElementById('prev-arrow');
+const nextArrow = document.getElementById('next-arrow');
+
+prevArrow.addEventListener('click', () => {
+handleArrowClick('prev');
+});
+
+nextArrow.addEventListener('click', () => {
+handleArrowClick('next');
+});
+
+// POPOLA INIZIALMENTE IL CAROSELLO CON GLI SLIDER E L'IMMAGINE, IL TITOLO E IL TESTO DEL PRIMO ELEMENTO NELL'ARRAY
+createSlides();
+populateCarousel();

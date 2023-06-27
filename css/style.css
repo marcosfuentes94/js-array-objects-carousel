@@ -1,30 +1,88 @@
-/*
-RESET
- */
+body {
+background-color: #fbab7e;
+background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+font-family: "Roboto", sans-serif;
+}
 
- *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
- }
+main section {
+width: 100%;
+min-height: 80vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 4rem 0;
+}
 
- .carousel-container {
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
- }
+main section .carousel-container {
+width: 700px;
+height: 500px;
+padding: 0;
+position: relative;
+overflow: hidden;
+border-radius: 0.375rem;
+}
 
- .slide {
-   display: none;
-   text-align: center;
- }
+main section .carousel-container .item {
+width: 97%;
+height: 100%;
+position: absolute;
+display: none;
+animation: fade 0.4s ease-in-out;
+}
 
- .slide.active {
-   display: block;
- }
+main section .carousel-container .item.active {
+display: block;
+}
 
- .slide img {
-   max-width: 100%;
-   height: auto;
- }
+img{
+width: 800px;
+height: 700px;
+}
+
+main section .carousel-container .item .text {
+width: 100%;
+padding: 0.625rem 0.9375rem;
+position: absolute;
+bottom: 0;
+font-size: 0.9rem;
+color: #f2f2f2;
+background-color: rgba(0, 0, 0, 0.76);
+}
+
+main section .carousel-container .item .text .title {
+margin: 0.5rem 0 0 0;
+font-size: 1.2rem;
+font-weight: normal;
+}
+
+main section .prev,
+main section .next {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+font-size: 2rem;
+cursor: pointer;
+}
+
+main section .prev {
+left: 1rem;
+}
+
+main section .next {
+right: 1rem;
+}
+
+.fa-circle-chevron-left,
+.fa-circle-chevron-right {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+}
+
+.fa-circle-chevron-left {
+left: 0rem;
+}
+
+.fa-circle-chevron-right {
+right: 0rem;
+}
