@@ -8,21 +8,23 @@ RESET
     box-sizing: border-box;
  }
 
- /* 
- GENERAL
- */
-
- body{
-    font-family: Arial, Helvetica, sans-serif;
- }
- 
- .container{
-    max-width: 1200px;
-    margin: 0 auto;
+ .carousel-container {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
  }
 
- /* DEBUG */
-.debug{
+ .slide {
+   display: none;
+   text-align: center;
+ }
 
+ .slide.active {
+   display: block;
+ }
 
-}
+ .slide img {
+   max-width: 100%;
+   height: auto;
+ }
