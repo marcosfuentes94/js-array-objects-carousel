@@ -29,8 +29,9 @@ text: "Marvel's Avengers is an epic, third-person, action-adventure game that co
 const container = document.getElementById('carousel-container');
 const thumbnailsContainer = document.getElementById('thumbnails-container');
 let activeIndex = 0;
+let autoplayInterval;
 
-// FUNZIONE PER CREARE GLI SLIDER PER OGNI IMMAGINE 
+// FUNZIONE PER CREARE GLI SLIDER PER OGNI IMMAGINE
 function createSlides() {
 container.innerHTML = ''; // RIMUOVI TUTTI GLI SLIDER ESISTENTI
 thumbnailsContainer.innerHTML = ''; // RIMUOVI TUTTE LE MINIATURE ESISTENTI
@@ -58,7 +59,7 @@ slide.appendChild(imageElement);
 slide.appendChild(textContainer);
 
 if (index === activeIndex) {
-slide.classList.add('active');
+    slide.classList.add('active');
 }
 
 // AGGIUNGI MINIATURA
@@ -66,8 +67,9 @@ const thumbnail = document.createElement('img');
 thumbnail.src = image.image;
 thumbnail.classList.add('thumbnail');
 thumbnail.addEventListener('click', () => {
-activeIndex = index;
-populateCarousel();
+    activeIndex = index;
+    resetAutoplayInterval();
+    populateCarousel();
 });
 
 thumbnailsContainer.appendChild(thumbnail);
@@ -81,9 +83,9 @@ const slides = container.getElementsByClassName('item');
 
 Array.from(slides).forEach((slide, index) => {
 if (index === activeIndex) {
-slide.classList.add('active');
+    slide.classList.add('active');
 } else {
-slide.classList.remove('active');
+    slide.classList.remove('active');
 }
 });
 }
@@ -96,7 +98,17 @@ activeIndex = (activeIndex - 1 + images.length) % images.length;
 activeIndex = (activeIndex + 1) % images.length;
 }
 
+resetAutoplayInterval();
 populateCarousel();
+}
+
+// FUNZIONE AUTOPLAY
+function resetAutoplayInterval() {
+clearInterval(autoplayInterval);
+autoplayInterval = setInterval(() => {
+activeIndex = (activeIndex + 1) % images.length;
+populateCarousel();
+}, 3000);
 }
 
 const prevArrow = document.getElementById('prev-arrow');
@@ -112,4 +124,5 @@ handleArrowClick('next');
 
 // POPOLA INIZIALMENTE IL CAROSELLO CON GLI SLIDER, LE MINIATURE E L'IMMAGINE, IL TITOLO E IL TESTO DEL PRIMO ELEMENTO NELL'ARRAY
 createSlides();
+resetAutoplayInterval();
 populateCarousel();
