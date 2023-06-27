@@ -28,7 +28,7 @@ text: "Marvel's Avengers is an epic, third-person, action-adventure game that co
 const container = document.getElementById('carousel-container');
 let activeIndex = 0;
 
-// FUNZIONE PER CREARE GLI SLIDER PER OGNI IMMAGINE
+// FUNZIONE PER CREARE GLI SLIDER PER OGNI IMMAGINE 
 function createSlides() {
 container.innerHTML = ''; // RIMUOVI TUTTI GLI SLIDER ESISTENTI
 
