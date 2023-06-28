@@ -59,7 +59,7 @@ slide.appendChild(imageElement);
 slide.appendChild(textContainer);
 
 if (index === activeIndex) {
-    slide.classList.add('active');
+slide.classList.add('active');
 }
 
 // AGGIUNGI MINIATURA
@@ -67,9 +67,9 @@ const thumbnail = document.createElement('img');
 thumbnail.src = image.image;
 thumbnail.classList.add('thumbnail');
 thumbnail.addEventListener('click', () => {
-    activeIndex = index;
-    resetAutoplayInterval();
-    populateCarousel();
+activeIndex = index;
+resetAutoplayInterval();
+populateCarousel();
 });
 
 thumbnailsContainer.appendChild(thumbnail);
@@ -80,13 +80,22 @@ container.appendChild(slide);
 // FUNZIONE PER POPOLARE IL CAROSELLO CON L'IMMAGINE, IL TITOLO E IL TESTO DELL'IMMAGINE ATTIVA
 function populateCarousel() {
 const slides = container.getElementsByClassName('item');
+const thumbnails = thumbnailsContainer.getElementsByClassName('thumbnail');
 
 Array.from(slides).forEach((slide, index) => {
-if (index === activeIndex) {
-    slide.classList.add('active');
-} else {
-    slide.classList.remove('active');
-}
+    if (index === activeIndex) {
+        slide.classList.add('active');
+    } else {
+        slide.classList.remove('active');
+    }
+});
+
+Array.from(thumbnails).forEach((thumbnail, index) => {
+    if (index === activeIndex) {
+        thumbnail.classList.add('active');
+    } else {
+        thumbnail.classList.remove('active');
+    }
 });
 }
 
